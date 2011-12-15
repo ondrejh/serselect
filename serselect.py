@@ -8,11 +8,13 @@ from tkinter import *
 
 class SerialSelectDialog(Frame):
     def __init__(self,master=None):
+        self.root = Tk()
         Frame.__init__(self, master)
         self.portlist = scan()
         self.portstr = StringVar()
         self.grid()
         self.createWidgets()
+        self.master.wm_iconbitmap('icon.gif')
         #self.mainloop()
 
     def createWidgets(self):
