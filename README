@@ -12,5 +12,5 @@ serscan.py :
 serselect.py :
   SerialSelectDialog application is a GUI to select serial port. It uses scan().
 
-testsecect.py :
+example.py :
   Test script - runs SerialSelectDialog and print selected port value.
