@@ -14,7 +14,7 @@ class SerialSelectDialog(Frame):
         self.portstr = StringVar()
         self.grid()
         self.createWidgets()
-        self.master.wm_iconbitmap('icon.gif')
+        self.master.wm_iconbitmap('icon.ico')
         #self.mainloop()
 
     def createWidgets(self):
