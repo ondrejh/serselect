@@ -8,11 +8,20 @@ Serial port selector.
   serscan .. used for scanning ports
   tkinter .. GUI elements (mostly)"""
 
-from os import path
+# local import
 from serscan import scan
+# general imports
+from os import path
 from tkinter import *
 
 class SerialSelectDialog(Frame):
+    ''' Serial port selector dialog
+    General description: Scans serial avaible serial ports and show it in
+    radiogroup to you can select one by clicking on radio button.
+    Pressing OK will close dialog - you can read selected port value by
+    app.portstr.get() function.
+    Pressing Scan will rescan avaible serial ports. '''
+     
     def __init__(self,master=None):
         self.root = Tk()
         Frame.__init__(self, master)
@@ -22,7 +31,7 @@ class SerialSelectDialog(Frame):
         self.createWidgets()
         #program icon (16x16 ico type only)
         if path.exists('icon.ico'):
-          self.master.wm_iconbitmap('icon.ico')
+            self.master.wm_iconbitmap('icon.ico')
         #self.mainloop()
 
     def createWidgets(self):
@@ -50,15 +59,19 @@ class SerialSelectDialog(Frame):
     def fillList(self):
         #create list of serial ports from portlist
         self.radiogroup = Frame()
-        for item in self.portlist:
-            b = Radiobutton(self.radiogroup, text=item[1], variable=self.portstr, value=item[1])
-            b.pack(side=TOP, expand=YES, pady=2, anchor='w')
+        if len(self.portlist)<1:
+            l = Label(self.radiogroup, text='No port found!')
+            l.pack(side=TOP, expand=YES, anchor='w')
+        else:
+            for item in self.portlist:
+                b = Radiobutton(self.radiogroup, text=item[1], variable=self.portstr, value=item[1])
+                b.pack(side=TOP, expand=YES, pady=2, anchor='w')
         #place it into form
         self.radiogroup.grid(row=1,column=0,columnspan=2)
 
     def clickOk(self):
-        #exit application
-        self.destroy()
+        #self.destroy() #this works better with idle
+        self.quit() #this can confuses idle, but works
                 
 #testser
 """print(scan())
