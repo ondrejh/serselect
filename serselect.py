@@ -19,7 +19,7 @@ class SerialSelectDialog(Frame):
 
     def createWidgets(self):
         #self.frame=Frame(self)
-        self.label = Label(self, text='Serial ports found:')
+        self.label = Label(self, text='Select serial port:')
         self.label.grid(row=0,column=0,columnspan=2)
         # create radio group
         self.fillList()
