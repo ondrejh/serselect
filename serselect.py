@@ -3,6 +3,12 @@
 Serial port selector.
 '''
 
+""" imports:
+  os.path .. used for icon file testing
+  serscan .. used for scanning ports
+  tkinter .. GUI elements (mostly)"""
+
+from os import path
 from serscan import scan
 from tkinter import *
 
@@ -14,7 +20,9 @@ class SerialSelectDialog(Frame):
         self.portstr = StringVar()
         self.grid()
         self.createWidgets()
-        self.master.wm_iconbitmap('icon.ico')
+        #program icon (16x16 ico type only)
+        if path.exists('icon.ico'):
+          self.master.wm_iconbitmap('icon.ico')
         #self.mainloop()
 
     def createWidgets(self):
