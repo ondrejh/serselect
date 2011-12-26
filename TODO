@@ -1,3 +1,5 @@
-Improve no port behavior
-Improve dialog closing
-Test on linux (primal target)
+make application icon work under linux (ubuntu)
+
+Improve no port behavior .. done
+Improve dialog closing .. done (partially)
+Test on linux (primal target) .. done (so far)

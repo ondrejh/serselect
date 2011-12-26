@@ -11,7 +11,6 @@ Serial port selector.
 # local import
 from serscan import scan
 # general imports
-from os import path
 from tkinter import *
 
 class SerialSelectDialog(Frame):
@@ -30,8 +29,10 @@ class SerialSelectDialog(Frame):
         self.grid()
         self.createWidgets()
         #program icon (16x16 ico type only)
-        if path.exists('icon.ico'):
-            self.master.wm_iconbitmap('icon.ico')
+        try:
+            self.master.wm_iconwindow('icon.ico')
+        except:
+            print('warning: program icon error')
         #self.mainloop()
 
     def createWidgets(self):
