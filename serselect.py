@@ -32,7 +32,13 @@ class SerialSelectDialog(Frame):
         try:
             self.master.wm_iconwindow('icon.ico')
         except:
-            print('warning: program icon error')
+            try:
+                iconbitmapLocation = "@icon-mask.xbm"
+                iconmaskLocation = "@icon.xbm"
+                self.master.iconbitmap(iconbitmapLocation)
+                self.master.iconmask(iconmaskLocation)
+            except:
+            	print('warning: program icon error')
         #self.mainloop()
 
     def createWidgets(self):
