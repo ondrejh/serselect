@@ -30,7 +30,7 @@ class SerialSelectDialog(Frame):
         self.createWidgets()
         #program icon (16x16 ico type only)
         try:
-            self.master.wm_iconwindow('icon.ico')
+            self.master.wm_iconbitmap('icon.ico')
         except:
             try:
                 iconbitmapLocation = "@icon-mask.xbm"
