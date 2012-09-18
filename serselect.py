@@ -78,11 +78,9 @@ class SerialSelectDialog(Frame):
         #self.destroy() #this works better with idle
         self.quit() #this can confuses idle, but works
                 
-#testser
-"""print(scan())
-help(scan)"""
 
-#testapp
-"""app = SerialSelectDialog()
-app.mainloop()
-print(app.portstr.get())"""
+#run app
+if __name__ == '__main__':
+    app = SerialSelectDialog()
+    app.mainloop()
+    print(app.portstr.get())
