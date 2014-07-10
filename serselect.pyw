@@ -24,8 +24,10 @@ class SerialSelectDialog(Frame):
     def __init__(self,master=None):
         self.root = Tk()
         Frame.__init__(self, master)
+        self.root.title('Port')
         self.portlist = scan()
         self.portstr = StringVar()
+        self.portretval = StringVar()
         self.grid()
         self.createWidgets()
         #program icon (16x16 ico type only)
@@ -42,15 +44,24 @@ class SerialSelectDialog(Frame):
     def createWidgets(self):
         #self.frame=Frame(self)
         self.label = Label(self, text='Select serial port:')
-        self.label.grid(row=0,column=0,columnspan=2)
+        self.label.grid(row=0,column=0,columnspan=3)
         # create radio group
         self.fillList()
         # crete scan button
         self.scanbutton = Button(text='Scan',command=self.clickScan)
         self.scanbutton.grid(row=2,column=0,sticky=W+E)
         # create ok button
-        self.okbutton = Button(text='Ok',command=self.clickOk)
+        self.okbutton = Button(text='Ok',command=self.clickOk,state=DISABLED)
         self.okbutton.grid(row=2,column=1,sticky=W+E)
+        # create cancel button
+        self.cancelbutton = Button(text='Cancel',command=self.clickCancel)
+        self.cancelbutton.grid(row=2,column=2,sticky=W+E)
+
+    def clickList(self):
+        # change form title
+        self.root.title(self.portstr.get())
+        # enable ok button
+        self.okbutton.config(state='normal')
 
     def clickScan(self):
         #delete old radiogroup
@@ -69,18 +80,22 @@ class SerialSelectDialog(Frame):
             l.pack(side=TOP, expand=YES, anchor='w')
         else:
             for item in self.portlist:
-                b = Radiobutton(self.radiogroup, text=item[1], variable=self.portstr, value=item[1])
+                b = Radiobutton(self.radiogroup, text=item[1], variable=self.portstr, value=item[1], command=self.clickList)
                 b.pack(side=TOP, expand=YES, pady=2, anchor='w')
         #place it into form
-        self.radiogroup.grid(row=1,column=0,columnspan=2)
+        self.radiogroup.grid(row=1,column=0,columnspan=3)
 
     def clickOk(self):
+        self.portretval.set(self.portstr.get())
         #self.destroy() #this works better with idle
-        self.quit() #this can confuses idle, but works
-                
+        self.quit() #this can confuse idle, but works
+
+    def clickCancel(self):
+        self.portstr.set('')
+        self.quit()
 
 #run app
 if __name__ == '__main__':
     app = SerialSelectDialog()
     app.mainloop()
-    print(app.portstr.get())
+    print(app.portretval.get())

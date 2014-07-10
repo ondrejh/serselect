@@ -8,7 +8,7 @@ from serselect import SerialSelectDialog
 #test dialog
 app = SerialSelectDialog()
 app.mainloop()
-portname = app.portstr.get()
+portname = app.portretval.get()
 
 if portname=='':
   print('No port selected !')
