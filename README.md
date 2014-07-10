@@ -7,8 +7,8 @@ description: Scann and select serial port with GUI
 
 name: serselect
 language: python3
-targets: linux, w7
-author: ondrejh.ck@gmail.com
+targets (tested): linux, w7
+author: ondrejh.ck@email.cz
 
 serscan.py :
   scan() function scans avaible serial ports and return list of id touples.
