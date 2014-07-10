@@ -1,5 +1,5 @@
-serselect: serial port selector gui
-===================================
+serselect: serial port selector
+===============================
 
 description: Scann and select serial port with GUI
 
