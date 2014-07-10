@@ -6,8 +6,11 @@ description: Scann and select serial port with GUI
 ![My image](https://raw.githubusercontent.com/ondrejh/serselect/master/screenshot.png)
 
 name: serselect
+
 language: python3
+
 targets (tested): linux, w7
+
 author: ondrejh.ck@email.cz
 
 serscan.py :
