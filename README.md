@@ -1,4 +1,9 @@
-description: Scanning and selecting serial port (with GUI)
+serselect: serial port selector gui
+===================================
+
+description: Scann and select serial port with GUI
+
+![My image](https://raw.githubusercontent.com/ondrejh/serselect/master/screenshot.png)
 
 name: serselect
 language: python3
@@ -9,7 +14,7 @@ serscan.py :
   scan() function scans avaible serial ports and return list of id touples.
   return structure: [(portnumber 1, portname 1) ..,(portnumber n, portname n)]
   
-serselect.py :
+serselect.pyw :
   SerialSelectDialog application is a GUI to select serial port. It uses scan().
 
 example.py :

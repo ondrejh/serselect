@@ -25,6 +25,7 @@ class SerialSelectDialog(Frame):
         self.root = Tk()
         Frame.__init__(self, master)
         self.root.title('Port')
+        self.root.resizable(width=False, height=False)
         self.portlist = scan()
         self.portstr = StringVar()
         self.portretval = StringVar()
