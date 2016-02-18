@@ -88,12 +88,12 @@ class SerialSelectDialog(Frame):
 
     def clickOk(self):
         self.portretval.set(self.portstr.get())
-        #self.destroy() #this works better with idle
-        self.quit() #this can confuse idle, but works
+        self.root.destroy() #this works better with idle
+        #self.quit() #this can confuse idle, but works
 
     def clickCancel(self):
         self.portstr.set('')
-        self.quit()
+        self.root.destroy()
 
 #run app
 if __name__ == '__main__':
