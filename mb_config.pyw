@@ -16,15 +16,33 @@ try:
     from serscan import scan
 except:
     from serselect.serscan import scan
+    subfolder=True
 
 import serial
     
 from tkinter import *
 from tkinter.ttk import *
 
+def validate_parity_input(parity):
+    if parity in ('Even','E','e','even','EVEN',serial.PARITY_EVEN):
+        return 'Even'
+    if parity in ('Odd','O','o','odd','ODD',serial.PARITY_ODD):
+        return 'Odd'
+    if parity in ('Mark','M','m','mark','MARK',serial.PARITY_MARK):
+        return 'Mark'
+    if parity in ('Space','S','s','space','SPACE',serial.PARITY_SPACE):
+        return 'Space'
+    #if parity in ('None','N','n','none','NONE',serial.PARITY_NONE,None):
+    #    return 'None'
+    return 'None'
+
 class ModbusSetupDialog(simpledialog.Dialog):
 
-    def body(self,master,dflAdr='1',dflPort='COM1',dflBaud='19200',dflWord='8',dflPar='None',dflStop='2'):
+    def __init__(self,parent,portsetup=(1,'COM1',19200,8,'None',2)):
+        self.portsetup=portsetup
+        simpledialog.Dialog.__init__(self,parent)
+
+    def body(self,master):
         self.mainframe = Frame(master,padding='5 5 5 5')
         self.mainframe.pack()
 
@@ -32,7 +50,7 @@ class ModbusSetupDialog(simpledialog.Dialog):
         
         #program icon (16x16 ico type only)
         try:
-            self.wm_iconbitmap("icon.ico")
+            self.wm_iconbitmap("icon.ico" if not(subfolder) else "serselect/icon.ico")    
         except:
             try:
                 self.iconbitmap("@icon.xbm")
@@ -51,13 +69,22 @@ class ModbusSetupDialog(simpledialog.Dialog):
         self.wordstr = StringVar()
         self.parstr  = StringVar()
         self.stopstr = StringVar()
-        
-        self.adrstr.set(dflAdr)
-        self.portstr.set(dflPort)
-        self.baudstr.set(dflBaud)
-        self.wordstr.set(dflWord)
-        self.parstr.set(dflPar)
-        self.stopstr.set(dflStop)
+
+        try:
+            self.adrstr.set(str(self.portsetup[0]))
+            self.portstr.set(str(self.portsetup[1]))
+            self.baudstr.set(str(self.portsetup[2]))
+            self.wordstr.set(str(self.portsetup[3]))
+            self.parstr.set(validate_parity_input(self.portsetup[4]))
+            self.stopstr.set(str(self.portsetup[5]))
+        except:
+            print('warning: there is some problem with port setup - getting default')
+            self.adrstr.set('1')
+            self.portstr.set('COM1')
+            self.baudstr.set('19200')
+            self.wordstr.set('8')
+            self.parstr.set('None')
+            self.stopstr.set('2')
 
         self.pLabel = Label(self.basicFrm,text='Port')
         self.pLabel.grid(row=0,column=0,sticky='W')
@@ -97,7 +124,7 @@ class ModbusSetupDialog(simpledialog.Dialog):
 
         self.scanPorts()
 
-        return(self.aSpinbox)
+        return(None)#self.aSpinbox)
 
     def scanPorts(self):
 
