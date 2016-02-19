@@ -18,10 +18,13 @@ except:
     from serselect.serscan import scan
     subfolder=True
 
+import os.path
+
 import serial
     
 from tkinter import *
 from tkinter.ttk import *
+import tkinter.simpledialog as simpledialog
 
 def validate_parity_input(parity):
     if parity in ('Even','E','e','even','EVEN',serial.PARITY_EVEN):
@@ -50,11 +53,14 @@ class ModbusSetupDialog(simpledialog.Dialog):
         
         #program icon (16x16 ico type only)
         try:
-            self.wm_iconbitmap("icon.ico" if not(subfolder) else "serselect/icon.ico")    
+            if os.path.isfile("sericon.ico"):
+                self.wm_iconbitmap("sericon.ico")
+            else:
+                self.wm_iconbitmap("serselect/sericon.ico")
         except:
             try:
-                self.iconbitmap("@icon.xbm")
-                self.iconmask("@icon-mask.xbm")
+                self.iconbitmap("@sericon.xbm")
+                self.iconmask("@sericon-mask.xbm")
             except:
                 print('warning: program icon error')
 
