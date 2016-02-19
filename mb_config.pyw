@@ -25,12 +25,24 @@ from tkinter.ttk import *
 class ModbusSetupDialog(simpledialog.Dialog):
 
     def body(self,master,dflAdr='1',dflPort='COM1',dflBaud='19200',dflWord='8',dflPar='None',dflStop='2'):
-        self.mainframe = Frame(master,padding='7 7 7 7')
+        self.mainframe = Frame(master,padding='5 5 5 5')
         self.mainframe.pack()
 
-        self.basicFrm = LabelFrame(self.mainframe,text='Basic',padding='7 7 7 7')
+        self.title('Serial setup')
+        
+        #program icon (16x16 ico type only)
+        try:
+            self.wm_iconbitmap("icon.ico")
+        except:
+            try:
+                self.iconbitmap("@icon.xbm")
+                self.iconmask("@icon-mask.xbm")
+            except:
+                print('warning: program icon error')
+
+        self.basicFrm = LabelFrame(self.mainframe,text='Basic',padding='5 5 5 5')
         self.basicFrm.pack(fill=X)
-        self.advanFrm = LabelFrame(self.mainframe,text='Advanced',padding='7 7 7 7')
+        self.advanFrm = LabelFrame(self.mainframe,text='Advanced',padding='5 5 5 5')
         self.advanFrm.pack(fill=X)
 
         self.adrstr  = StringVar()
@@ -51,33 +63,37 @@ class ModbusSetupDialog(simpledialog.Dialog):
         self.pLabel.grid(row=0,column=0,sticky='W')
         self.basicFrm.grid_columnconfigure(0,weight=1)
         self.pComboBox = Combobox(self.basicFrm,textvariable=self.portstr,justify=CENTER,font=(14))
-        self.pComboBox.grid(row=0,column=1,columnspan=2,pady=5,padx=5,sticky='E')
+        self.pComboBox.grid(row=0,column=1,columnspan=2,pady=3,padx=3,sticky='E')
         self.aLabel = Label(self.basicFrm,text='RTU Address')
         self.aLabel.grid(row=1,column=0,columnspan=2,sticky='W')
         self.aSpinbox = Spinbox(self.basicFrm,textvariable=self.adrstr,from_=1,to=254,width=7,justify=CENTER,font=(14))
-        self.aSpinbox.grid(row=1,column=2,pady=5,padx=5,sticky='E')
+        self.aSpinbox.grid(row=1,column=2,pady=3,padx=3,sticky='E')
         self.brLabel = Label(self.advanFrm,text='Baudrate')
         self.brLabel.grid(row=0,column=0,sticky='W')
         self.advanFrm.grid_columnconfigure(0,weight=1)
         self.brComboBox = Combobox(self.advanFrm,textvariable=self.baudstr,values=stdBaudrates,width=10,justify=CENTER)
-        self.brComboBox.grid(row=0,column=1,pady=5,padx=5,sticky='E')
+        self.brComboBox.grid(row=0,column=1,pady=3,padx=3,sticky='E')
         self.bruLabel = Label(self.advanFrm,text='Bd')
         self.bruLabel.grid(row=0,column=2,sticky='E')
-        self.bitsLabel = Label(self.advanFrm,text='Word')
+        self.bitsLabel = Label(self.advanFrm,text='Word length')
         self.bitsLabel.grid(row=1,column=0,sticky='W')
-        self.bitsComboBox = Combobox(self.advanFrm,textvariable=self.wordstr,values=strWordlens,width=10,justify=CENTER)
+        self.bitsComboBox = Combobox(self.advanFrm,textvariable=self.wordstr,values=strWordlens,width=10,justify=CENTER,state='readonly')
         #self.bitsComboBox.current(dflWordlen)
-        self.bitsComboBox.grid(row=1,column=1,pady=5,padx=5,sticky='E')
+        self.bitsComboBox.grid(row=1,column=1,pady=3,padx=3,sticky='E')
+        self.bitsuLabel = Label(self.advanFrm,text='b')
+        self.bitsuLabel.grid(row=1,column=2,sticky='E')
         self.parLabel = Label(self.advanFrm,text='Parity')
         self.parLabel.grid(row=2,column=0,sticky='W')
         self.parComboBox = Combobox(self.advanFrm,textvariable=self.parstr,values=strParities,state='readonly',width=10,justify=CENTER)
         #self.parComboBox.current(dflParity)
-        self.parComboBox.grid(row=2,column=1,pady=5,padx=5,sticky='E')
+        self.parComboBox.grid(row=2,column=1,pady=3,padx=3,sticky='E')
         self.stopLabel = Label(self.advanFrm,text='Stop bit(s)')
         self.stopLabel.grid(row=3,column=0,sticky='W')
         self.stopComboBox = Combobox(self.advanFrm,textvariable=self.stopstr,values=strStopbits,state='readonly',width=10,justify=CENTER)
         #self.stopComboBox.current(dflStopbit)
-        self.stopComboBox.grid(row=3,column=1)
+        self.stopComboBox.grid(row=3,column=1,pady=3,padx=3)
+        self.stopuLabel = Label(self.advanFrm,text='b')
+        self.stopuLabel.grid(row=3,column=2,sticky='E')
 
         self.scanPorts()
 
@@ -186,6 +202,7 @@ if __name__=="__main__":
         #print(d.resstr)
 
     root = Tk()
-    Button(root, text="Try Me!", command=btnClick).pack()
+
+    Button(root, text="Try ModbusSetup Dialog!", command=btnClick).pack()
     root.mainloop()
     

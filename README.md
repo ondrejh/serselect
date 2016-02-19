@@ -1,6 +1,10 @@
 serselect: serial port selector
 ===============================
 
+2.2015: Modbus RTU focused serial configuration dialog based on "simpledialog" ...
+
+![Yet another image](https://raw.githubusercontent.com/ondrejh/serselect/master/mb_screenshot.png)
+
 description: Scann and select serial port with GUI
 
 ![My image](https://raw.githubusercontent.com/ondrejh/serselect/master/screenshot.png)
