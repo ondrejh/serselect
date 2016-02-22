@@ -202,11 +202,11 @@ class ModbusSetupDialog(simpledialog.Dialog):
 
         try:
             stop = self.stopstr.get()
-            if stop=='1':
+            if stop in ('1','1.0','1,0'):
                 stop=serial.STOPBITS_ONE
             elif stop in ('1.5','1,5'):
                 stop=serial.STOPBITS_ONE_POINT_FIVE
-            elif stop=='2':
+            elif stop in ('2','2.0','2,0'):
                 stop=serial.STOPBITS_TWO
             else:
                 raise ValueError('Invalid stopbit')
